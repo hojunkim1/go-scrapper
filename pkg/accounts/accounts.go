@@ -7,7 +7,7 @@ import (
 
 // Account struct
 type Account struct {
-	owner string
+	owner   string
 	balance int
 }
 
@@ -31,7 +31,7 @@ func (a Account) Balance() int {
 
 //Withdraw x amount from your account
 func (a *Account) Withdraw(amount int) error {
-	if a.balance < amount  {
+	if a.balance < amount {
 		return errNoMoney
 	}
 	a.balance -= amount
