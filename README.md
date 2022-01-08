@@ -1,3 +1,3 @@
 # Job Scrapper with Go
 
-## Scrapping Indeed
+Scrapping Indeed - use "goquery"
