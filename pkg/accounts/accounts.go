@@ -29,7 +29,7 @@ func (a Account) Balance() int {
 	return a.balance
 }
 
-//Withdraw x amount from your account
+// Withdraw x amount from your account
 func (a *Account) Withdraw(amount int) error {
 	if a.balance < amount {
 		return errNoMoney
