@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var errCantWithdraw = errors.New("Can't withdraw")
+
 // Account struct
 type Account struct {
 	owner   string
@@ -40,7 +42,7 @@ func (a *Account) Deposit(amount int) {
 // Withdraw from your account
 func (a *Account) Withdraw(amount int) error {
 	if a.balance < amount {
-		return errors.New("Can't withdraw")
+		return errCantWithdraw
 	}
 	a.balance -= amount
 	return nil
