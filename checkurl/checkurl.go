@@ -20,13 +20,21 @@ var urls = []string{
 	"https://academy.nomadcoders.co/",
 }
 
-func checkURL() {
+// CheckURL checks url is up to go
+func CheckURL() {
 	var results = make(map[string]string)
 
+	c := make(chan error)
+
+	// start channel
 	for _, url := range urls {
-		fmt.Println("Checking url:", url)
+		go hitURL(url, c)
+	}
+
+	// get channel
+	for _, url := range urls {
 		result := "OK"
-		if err := hitURL(url); err != nil {
+		if <-c == errRequestFailed {
 			result = "FAILED"
 		}
 		results[url] = result
@@ -37,10 +45,10 @@ func checkURL() {
 	}
 }
 
-func hitURL(url string) error {
+func hitURL(url string, c chan error) {
 	if res, err := http.Get(url); err != nil || res.StatusCode >= 400 {
 		fmt.Println(err, res.StatusCode)
-		return errRequestFailed
+		c <- errRequestFailed
 	}
-	return nil
+	c <- nil
 }
